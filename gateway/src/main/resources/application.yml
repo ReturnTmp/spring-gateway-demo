@@ -1,0 +1,30 @@
+# 应用服务 WEB 访问端口
+server:
+  port: 9000
+# 应用名称
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+      discovery:
+        server-addr: 127.0.0.1:8848
+#    gateway:
+#      routes: # http://127.0.0.1:9000/actuator/gateway/routes
+#        - id: provider  # 路由 ID，保持唯一
+#          uri: lb://provider # uri指目标服务地址，lb代表从注册中心获取服务
+#          predicates:
+#            - Path=/provider/**  # http://127.0.0.1:9000/provider/port 会转发到 http://localhost:9001/provider/port, 和预期不符合, 需要StripPrefix来处理
+#          filters:
+#            - StripPrefix=1 # StripPrefix=1就代表截取路径的个数为1, 这样请求 http://127.0.0.1:9000/provider/test/port 会转发到 http://localhost:9001/test/port
+
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: gateway
